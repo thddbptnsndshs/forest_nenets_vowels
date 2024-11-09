@@ -1,0 +1,3 @@
+kind: 'formant'
+filter_query: "syllable_count == 'polysyllabic' and consultant == 'AOK' and position == 'initial' and palatalization != 'none'"
+save_fn: 'images/OKT_formants.png'

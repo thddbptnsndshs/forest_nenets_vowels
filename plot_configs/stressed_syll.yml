@@ -1,0 +1,22 @@
+kind: 'duration'
+filter_query: "syllable_count == 'polysyllabic' and vowel != 'mid' and stress == 'stressed' and pre_schwa == 'no' and position != 'final'"
+
+#save_fn: 'images/stressed_syll.png'
+
+barplot_args:
+  args: ['stress', 'duration, ms']
+  kwargs:
+    palette: 'Set1'
+
+facetgrid_args:
+  row: 'vowel'
+  col: 'syll'
+  col_order: ['CVV', 'CV', 'CVVC', 'CVC']
+  row_order: ['high', 'low']
+
+rename_columns_dict:
+  syllable_structure: 'syll'
+  duration: 'duration, ms'
+
+top: 0.9
+suptitle: 'Duration in internal stressed syllables'
