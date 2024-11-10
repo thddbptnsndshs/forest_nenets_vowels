@@ -26,8 +26,9 @@ Formant and duration data have been processed with [this Praat script](https://g
 Draw a plot:
 
 `curl -X POST --data-binary @plot_configs/stressed_syll.yml -H "Content-Type: text/x-yaml; charset=utf-8" http://0.0.0.0:8000/plot --output images/duration_plot.png`
+
 `curl -X POST --data-binary @plot_configs/OKT_formant_plot.yml -H "Content-Type: text/x-yaml; charset=utf-8" http://0.0.0.0:8000/plot --output images/formant_plot.png`
 
 Draw a LaTeX table: 
 
-curl -X POST --url http://0.0.0.0:8000/table --header 'Content-Type: application/json; charset=utf-8' --data '{"word": "tŭta", "columns_to_add": ["position"]}'
+`curl -X POST --url http://0.0.0.0:8000/table --header 'Content-Type: application/json; charset=utf-8' --data '{"word": "tŭta", "columns_to_add": ["position"]}'`
