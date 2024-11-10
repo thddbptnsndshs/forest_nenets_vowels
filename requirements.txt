@@ -1,5 +1,11 @@
-TextGrid
-numpy
-pandas
+PyYAML
 matplotlib
-seaborn
+uvicorn
+fastapi
+pydantic
+pandas
+tqdm
+numpy
+scipy
+TextGrid
+pydantic

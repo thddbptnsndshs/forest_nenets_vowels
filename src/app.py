@@ -6,7 +6,6 @@ import yaml
 warnings.filterwarnings("ignore")
 
 from fastapi import FastAPI, Response, Request
-from argparse import ArgumentParser
 from src.plot import FNPlots
 from src.parser import FNProcessor
 import matplotlib.pyplot as plt
@@ -17,10 +16,6 @@ from typing import List
 
 app = FastAPI()
 parser = FNProcessor()
-# argparser = ArgumentParser()
-#
-# argparser.add_argument('-f', '--filename', type=str, default='output_20240820.csv')
-# args = argparser.parse_args()
 data = parser.preprocess_data('output_20240820.csv')
 plotter = FNPlots(data)
 
@@ -33,6 +28,11 @@ class TableRequest(BaseModel):
 
 @app.post("/plot", response_class=Response)
 async def plot(request: Request):
+    """
+    Draw a .png plot from .yaml config
+    :param request: user request with a .yaml config
+    :return: Response with either a .png file or an error message
+    """
     raw_body = await request.body()
     try:
         config = yaml.safe_load(raw_body)
@@ -57,6 +57,11 @@ async def plot(request: Request):
 
 @app.post("/table", response_class=Response)
 async def table(request: TableRequest):
+    """
+    Create a LaTeX duration mean+std table in plain text from user request
+    :param request: TableRequest with fields word, round_factor and columns_to_add
+    :return: Response in plain text
+    """
     return Response(content=plotter.get_word_duration_table(
         request.word,
         request.round_factor,
@@ -66,11 +71,15 @@ async def table(request: TableRequest):
 
 @app.get("/health", response_class=Response)
 async def health():
+    """
+    :return: Response in plain text
+    """
     health_response = f"""Data root directory: {os.getenv('ROOT_PATH')}
 Audio dir: {os.getenv('AUDIO_TEXTGRID_DIR')}
 Formant dir: {os.getenv('FORMANT_DIR')}
 Got processed data of shape {data.shape}"""
     return Response(content=health_response, media_type="text/plain", status_code=200)
+
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

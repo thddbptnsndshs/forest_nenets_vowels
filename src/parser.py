@@ -33,6 +33,11 @@ class FNProcessor:
             self,
             word: str
     ):
+        """
+        Parses a word into syllables; supposes that all syllables are of shape CV, CVV, CVC, CVVC
+        :param word: str, word spelled with FN practical transcription
+        :return: list of (syllable, structure) tuples
+        """
         if word[0] in self.vowels:
             word = 'ʔ' + word  # no vowel-initial words
         cv_mask = ''
@@ -81,7 +86,24 @@ class FNProcessor:
             target_syll,
             target_idx,
     ):
+        """
+        Computes several context characteristics for each vowel in the word parsed into syllables beforehand.
 
+        :param syllables: List[str], list of (structure, syllable) pairs
+        :param idx: int, index of the word in the dataframe
+        :param vowel: str, vowel
+        :param target_syll: str, syllable structure
+        :param target_idx: int, index of syllable in the `syllables` list
+        :return: tuple of context characteristics
+
+        syllable_structure: syllable structure (CV, CVV, CVC, or CVVC)
+        syllable_count: monosyllable/polysyllabic
+        position: initial, medial, final
+        stress: stressed/unstressed according to the rule --- stress falls on odd-numbered non-final syllables
+        vowel: high (/i ĭ u ŭ/), mid (/e o ĕ ŏ æ æ̆/), low (/a ă/)
+        pre_schwa: yes/no
+        palatalization: left for CjVC, right for CVCj, double for CjVCj, none for CVC (Cj = palatalized C)
+        """
         if target_syll is None:
             return '', '', '', '', '', '', ''
 
@@ -130,10 +152,18 @@ class FNProcessor:
 
     def determine_contexts(self, syllables, vowels, indices):
         """
-        vowels: list of (V, List[str, float])
-        get the first occurrence of vowel and return the context characteristics
-        takes syllables of form [(cv_mask, segments)*]
-        returns a tuple of (syllable structure, syllable count, position, stress, vowel)
+        Get the first occurrence of vowel and return the context characteristics
+        :param syllables: List[List[str, str]], list of (structure, syllable) pairs
+        :param vowels: List[str], list of vowels
+        :param indices: List[int], indeces of words
+        :return: list of [vowel, index, tuples of context characteristics]
+        syllable_structure: syllable structure (CV, CVV, CVC, or CVVC)
+        syllable_count: monosyllable/polysyllabic
+        position: initial, medial, final
+        stress: stressed/unstressed according to the rule --- stress falls on odd-numbered non-final syllables
+        vowel: high (/i ĭ u ŭ/), mid (/e o ĕ ŏ æ æ̆/), low (/a ă/)
+        pre_schwa: yes/no
+        palatalization: left for CjVC, right for CVCj, double for CjVCj, none for CVC (Cj = palatalized C)
         """
         out = list()
 
@@ -157,6 +187,11 @@ class FNProcessor:
         return out
 
     def preprocess_data(self, filename: str):
+        """
+        Load .csv dataset, extract and preprocess the data
+        :param filename: str, path to input file
+        :return: pd.DataFrame with preprocessed data
+        """
         df = pd.read_csv(
                 os.path.join(
                     os.getenv('ROOT_PATH', '../misc'),
@@ -212,5 +247,5 @@ class FNProcessor:
         df = mrg_df_grouped_expl.merge(df, left_on='indeces', right_index=True, suffixes=('', '_DROP'))
         df = df.drop(columns=list(filter(lambda x: '_DROP' in x, df.columns)))
         # remove parsing errors
-        df.loc[~df['syllable_structure'].isin(['CVCC', 'CVCC', 'CVVCCC'])]
+        df = df.loc[~df['syllable_structure'].isin(['CVCC', 'CVCC', 'CVVCCC'])]
         return correct_spelling(df)

@@ -1,12 +1,12 @@
-kind: 'duration'
+kind: 'duration' # kind of plot: duration or formant
 filter_query: "syllable_count == 'polysyllabic' and vowel != 'mid' and stress == 'stressed' and pre_schwa == 'no' and position != 'final'"
 
-#save_fn: 'images/stressed_syll.png'
+#save_fn: 'images/stressed_syll.png' # only set save_fn to save the plot locally while running the function in a notebook/script
 
 barplot_args:
-  args: ['stress', 'duration, ms']
+  args: ['stress', 'duration, ms'] # hue and y
   kwargs:
-    palette: 'Set1'
+    palette: 'Set1' # color palette
 
 facetgrid_args:
   row: 'vowel'
@@ -18,5 +18,5 @@ rename_columns_dict:
   syllable_structure: 'syll'
   duration: 'duration, ms'
 
-top: 0.9
-suptitle: 'Duration in internal stressed syllables'
+top: 0.9 # cosmetic parameter; some plots need adjustment on the grid
+suptitle: 'Duration in internal stressed syllables' # plot title
