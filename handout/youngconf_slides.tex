@@ -1,0 +1,600 @@
+% !TEX TS-program = XeLaTeX
+\documentclass[10 pt, handout]{beamer}
+
+% BEAMER SLIDES SETUP
+
+\usecolortheme{rose}
+\usefonttheme{professionalfonts}
+\usefonttheme{serif}
+\definecolor{antiquefuchsia}{rgb}{0.57, 0.36, 0.51}
+\definecolor{bazaar}{rgb}{0.6, 0.47, 0.48}
+\definecolor{cadet}{rgb}{0.33, 0.41, 0.47}
+\setbeamercolor{titlelike}{fg=antiquefuchsia}
+\setbeamercolor{structure}{fg=bazaar}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=cadet,
+    citecolor=cadet,
+    filecolor=cadet,
+    urlcolor=cadet,
+}
+\usepackage{tipa}
+
+% STYLE
+
+\usepackage{float}
+\usepackage{pifont}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{subfig}
+\usepackage{enumerate}
+\usepackage[normalem]{ulem} % underlining
+\usepackage{multirow}  
+\usepackage{booktabs} % tables
+%\PassOptionsToPackage{table}{xcolor}% coloring tables
+\usepackage{colortbl}
+
+\AtBeginSection[]{ % section header slides
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+\setbeamertemplate{footline}[frame number] % slide numbers
+
+% LANGUAGE + FONT
+		    
+\usepackage[english]{babel}
+\usepackage[backend=biber,
+                     style=unified]{biblatex}
+\newcommand{\citeay}[2][]{
+   \citeauthor{#2} (\citeyear[#1]{#2})}
+\addbibresource{ref.bib}
+\usepackage{fontspec}  
+\setmainfont{Fira Sans}
+%\setmainfont{TeX Gyre Termes}
+
+% DRAWING
+
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{trees,arrows}
+\usetikzlibrary{positioning}
+\usetikzlibrary{matrix}
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{decorations.shapes}
+\usetikzlibrary{shapes.misc}
+
+% LINGUISTICS 
+
+\usepackage{expex}
+\usepackage[glossaries]{leipzig}
+\makeglossaries
+\newleipzig {evid} {evid} {evidentiality}
+\newleipzig {cn} {cn} {connegative}
+\newleipzig {sub} {sub} {subjective}
+\newleipzig {gfs} {gfs} {general finite stem}
+\newleipzig {hab} {hab} {habitual}
+\newleipzig {prt} {prt} {preterite}
+
+\title{Нейтрализация долгот \\в лесном ненецком языке} %\\ {\normalsize Forest Nenets vowel alternations}}
+\author{Александра Шикунова (НИУ ВШЭ, Москва)}
+\institute{XXI конференция по типологии и грамматике для молодых исследователей, Санкт-Петербург}
+\date{21-11-2024}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Введение: нейтрализация}
+
+	Безударные гласные часто теряют часть контрастных признаков
+	\vspace*{1em}
+	
+	\begin{enumerate}[\ding{166}]
+		\item Легко найти примеры нейтрализации по сегментным признакам 
+		\item В русском языке пространство из 5 контрастных фонем в безударных слогах сужается до 3 или 2
+		\item Может ли нейтрализация затрагивать супрасегментные признаки, такие, как долгота гласных?
+	\end{enumerate}
+	
+\end{frame}
+
+\begin{frame}{Лесной ненецкий язык}
+
+	\begin{enumerate}[\ding{69}]
+		\item Лесной ненецкий < самодийские < уральские
+		\item Данные собраны методом элицитации в г. Тарко-Сале в 2024 году
+	\end{enumerate}
+	
+	\begin{figure}[H]
+		\includegraphics[width=.65\textwidth]{yanao-map}
+		\hfill
+		\includegraphics[width=.29\textwidth]{salminen-map}
+		\label{}
+		\caption*{\footnotesize Карта справа из \textcite{salminen2019}}
+	\end{figure}
+		
+\end{frame}
+
+
+\begin{frame}{Инвентарь гласных}
+
+	\begin{enumerate}[\ding{102}]
+		\item Гласные в ударном слоге противопоставлены по долготе
+		\item В безударном слоге контраст нейтрализуется
+		\item Также нейтрализуется контраст между гласными среднего и высокого подъема
+	\end{enumerate}
+	
+	\vfill
+	
+\begin{minipage}{.45\textwidth}
+\centering
+Ударные слоги
+
+\begin{table}[H]
+\begin{tabular}{ccc}
+ĭ i  &  &  ŭ u   \\
+ĕ e  &    & ŏ o \\
+æ̆ æ & ă a &    
+\end{tabular}
+\end{table}
+\end{minipage}
+%\hfill
+\begin{minipage}{.5\textwidth}
+\centering
+Безударные слоги
+
+\begin{table}[H]
+\begin{tabular}{ccc}
+\multirow{2}{*}{°} & i & u \\
+                   & æ & a
+\end{tabular}
+\end{table}
+\end{minipage}
+
+
+\end{frame}
+
+\begin{frame}{Ударение}
+
+	\begin{enumerate}[\ding{87}]
+		\item Ударение падает на нечетные слоги, но последний --- безударный
+		
+	\ex	ˈka.ta \hfill `бабушка'\\
+		ˈta.pa.ta \hfill `указать'\\
+		ˈta.pa.ˈta.ŋa \hfill `указать.{\Gfs}'	
+	\xe
+		
+		\item Если ударение падает на открытый слог с краткой гласной, следующая согласная удлиняется (компенсаторная геминация)		
+
+	\ex	ˈwă.ta [wătta] \hfill `крючок'\\
+		ˈxă.ma [xămma] \hfill `шапка'\\
+		ˈdʹĭλ´i [dʹĭλλi] \hfill `луна'
+	\xe
+	\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Шва} 
+
+	Шва обозначается как /°/ и может иметь несколько поверхностных реализаций:
+	\vspace*{1em}
+
+	\begin{enumerate}[\ding{246}]
+		\item Ноль либо [ĭ]
+		
+	\ex	tăλ.kăt° [tăλkăt $\sim$ tăλkătĭ] \hfill `мех.{\Abl}'\\
+		măń° [măń $\sim$ măńĭ]  \hfill `я'
+	\xe
+		
+		\item {[ă]} при прояснении в контексте C°C°
+	\ex	λat° $+$ š° $\rightarrow$ λatăš° \hfill `ударить.{\Cvb}'\\
+		kăλ° $+$ n° $\rightarrow$ kăλăn° \hfill `нож.{\Dat}'
+	\xe
+		
+	\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Шва} 
+
+	Шва обозначается как /°/ и может иметь несколько поверхностных реализаций:
+	\vspace*{1em}
+
+	\begin{enumerate}[\ding{117}]
+		\item Удлинение и восстановление контраста между высоким и средним подъёмом в предыдущем слоге	
+
+	\ex	ˈka.ta [kată] --- ka.ta.λ° [kataλ] \hfill `бабушка' --- `бабушка.{\Poss}.{\Ssg}'\\
+		ˈńiʰ.ku [ńiʰkŭ] --- ˈńiʰ.ko.n° [ńiʰkon] \hfill `окунь' --- `окунь.{\Dat}' 
+	\xe
+		
+		\item Геминация предыдущей согласной
+			
+	\ex dʹăλ.na.s° [dʹăλnas] \hfill `платье'\\
+		kă.λ°.xă.na [kăλλxăn(n)a] \hfill `нож.{\Loc}'
+	\xe
+	\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Чередования гласных}
+
+	\begin{enumerate}[\ding{96}]
+		\item В безударных слогах гласные /е о/ переходят в /i u/
+		\item Нейтрализуется контраст между высоким и средним подъёмом гласных
+	\end{enumerate}
+
+%	TODO: пример на e/i
+%	\pex
+%		\emph{wińi} --- \emph{wińi-t°} \hfill `{\Emph}.{\Neg} --- {\Emph}.{\Neg}-{\Fsg}'\\
+%		\emph{} --- \emph{} \hfill ` --- '\\
+%	\xe
+		
+%	\ex	\emph{dʹŭλ°nu} --- \emph{dʹŭλ°nuj°} \hfill `утро --- утренний'\\ % без швы можно?
+%		\emph{ŋotaʰku} --- \emph{ŋotaʰkoj°} \hfill `дорожка --- дорожка.{\Poss}.{\Fsg}'
+%	\xe
+	\ex	\emph{xaλʹ°ʔńu} --- \emph{xaλʹ°ʔńuxŭt°} \hfill `яйцо --- яйцо.{\Abl}'\\ % можно
+		\emph{xalaʰku} --- \emph{xalaʰkoxot°} \hfill `зверь --- зверь.{\Abl}'
+	\xe
+
+\end{frame}
+
+\begin{frame}{Вопросы для инструментального исследования}
+
+	Для лесного ненецкого языка (ЛН) практически не имеется акустических данных, которые помогли бы ответить на вопросы:
+	\vspace*{1em}
+	
+	\begin{enumerate}[\ding{50}]
+		\item Как длительности гласных на поверхности связаны с глубинными долготами?
+		\item Чем определяется длительность гласных в безударных слогах?\\
+			т.\ е.\ что такое ``нейтральная долгота''?
+	\end{enumerate}
+
+\end{frame}
+
+			\section{Акустические данные} 
+
+\begin{frame}{Данные}
+
+	Полевая работа в г. Тарко-Сале (ЯНАО)
+
+	\begin{enumerate}[\ding{68}]
+		\item Июль 2024 (с опорой на данные, собранные в июне--июле 2023)
+		\item 11 консультантов (3 мужчин, 8 женщин)
+		\item Zoom H1n 48k 16bit
+		\item Ручная аннотация в Praat \parencite{praat}
+		\item Всего собрано 3906 слов
+	\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Анкета}
+
+	В списке слов для элицитации для гласных контролировались следующие переменные:
+
+	\begin{enumerate}[\ding{77}]
+		\item Структура слога: CV, CVC, CVV, CVVC
+		\item Ударение: ударная/безударная
+		\item Количество слогов в слове: односложное/многосложное
+		\item Позиция слога: начальный, внутренний, конечный
+		\item Подъём гласной:	
+			\begin{enumerate}[\ding{163}]
+				\item низкий /a, ă/
+				\item средний /e, o, ĕ, ŏ/
+				\item высокий /i, u, ĭ, ŭ/
+			\end{enumerate}
+	\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Долготы и длительности под ударением}
+
+	В ударных слогах, как и ожидалось, слоги выстраиваются по длительности в порядке CVV > CVVC > CV > CVC % sync graph with hierarchy?
+		
+	\begin{figure}[H]
+		\includegraphics[height=.7\paperheight]{polysyll\_dist}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}{Безударные слоги}
+
+	Безударные гласные (отмечены синим на графике)
+		
+	\begin{enumerate}[\ding{226}]
+		\item Долгие: длиннее нейтральных
+		\item Краткие: немного короче нейтральных
+	\end{enumerate}
+		
+	\begin{figure}[H]
+		\includegraphics[height=.45\paperheight]{unstressed\_polysyll\_dist}
+		\hfill
+		\includegraphics[height=.45\paperheight]{unstressed\_polysyll\_dist\_short}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}{Вариация длительностей в безударных слогах}
+
+	Безударные гласные сильно варьируются по длительности
+	\vspace*{1em}
+
+	\begin{enumerate}[\ding{102}]
+		\item Между закрытыми и открытыми слогами: наличие коды сокращает гласную
+	\end{enumerate}
+	
+	\begin{figure}[H]
+		\includegraphics[height=.5\paperheight]{unstressed\_syll\_structure}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}{Вариация длительностей в безударных слогах}
+
+	Безударные гласные сильно варьируются по длительности
+	\vspace*{1em}
+
+	\begin{enumerate}[\ding{94}]
+		\item В зависимости от распределения слогового веса в слове
+		\item Длительность гласной во втором финальном закрытом слоге сильно увеличивается, если первый слог --- CV
+	\end{enumerate}
+	
+\begin{table}[H]
+\centering
+\begin{tabular}{llrrr}
+\toprule
+ {word} & {segment} &  {mean, ms} &  {std, ms} &  {count}  \\
+\midrule
+kŭ.\textbf{ńaŋ} &       a &    \textbf{183.35} &    29.37 &      5  \\
+ʔa.\textbf{ńaŋ} &       a &     72.00 &    17.67 &      3  \\
+tă.n°.\textbf{šaŋ} &       a &     81.72 &    11.28 &      3  \\
+\bottomrule
+\end{tabular}
+\end{table}
+	
+\end{frame}
+
+\begin{frame}[fragile]{Качество гласных}
+
+	\begin{enumerate}[\ding{72}]
+		\item Иерархия сонорности: гласные выстраиваются в иерархию по качеству, где более высокая позиция связана с повышенной проминентностью, втч. с увеличенной длительностью \parencite{kenstowicz1997, delacy2002, parker2002}
+		\item Ожидается, что длительность будет расти в порядке high < mid < low
+	\end{enumerate}
+	
+	\ex\label{ex:son-hierarchy}
+		\textbf{Универсальная иерархия сонорности} \\ (\cite[162]{kenstowicz1997}, \cite[55]{delacy2002})\\
+		\vspace*{.5em}
+\begin{table}[H]
+\begin{tabular}{ll}
+low peripheral  & \emph{a}    \\[.1em]
+mid peripheral  & \emph{e, o} \\[.1em]
+high peripheral & \emph{i, u} \\[.1em]
+mid central     & \emph{ə}    \\[.1em]
+high central    & \emph{ɨ}   
+\end{tabular}
+\end{table}	
+	\xe	
+	
+\end{frame}
+
+\begin{frame}{Качество гласных под ударением}
+
+	\begin{enumerate}[\ding{167}]
+		\item Ожидается, что длительность будет расти в порядке\\ high < mid < low
+		\item Под ударением, резкого эффекта иерархии нет
+	\end{enumerate}
+	
+	\begin{figure}[H]
+		\includegraphics[height=.55\paperheight]{stressed\_vowel\_quality\_dist}
+	\end{figure}
+
+\end{frame}
+
+\begin{frame}{Качество безударных гласных}
+
+	\begin{enumerate}[\ding{45}]
+		\item В безударных слогах, разница также минимальна
+	\end{enumerate}
+	
+	\begin{figure}[H]
+		\includegraphics[height=.65\paperheight]{unstressed\_vowel\_quality\_dist}
+	\end{figure}
+
+\end{frame}
+
+
+\begin{frame}{Длительности гласных: обобщения}
+
+	\begin{enumerate}[\ding{166}]
+		\item Долгие гласные более длинные
+		\item Краткие гласные более короткие
+		\item В безударных слогах, на длительности влияют два фактора:
+			\vspace*{-1em}
+			\begin{enumerate}[\ding{167}]
+				\item В открытых слогах гласные длиннее, чем в закрытых (применимо и к ударным слогам)
+				\item Конечные слоги в двусложных словах с начальным CV-слогом содержат длинные гласные
+			\end{enumerate}
+		\item Сонорность не имеет выраженного эффекта на длительности
+	\end{enumerate}
+
+\end{frame}
+
+	\section{Обсуждение}
+
+\begin{frame}{Длительность гласных и просодия}
+
+	Акустические данные о длительностях гласных заставляют задуматься о понятии ударения в ЛН
+	\vspace*{1em}
+	
+	\begin{enumerate}[\ding{36}]
+		\item Ударение, согласно описаниям \parencite{sammallahti1974, salminen2007}, падает на нечетные нефинальные слоги
+		\item В стандартном понимании, ударение увеличивает длительность, интенсивность и/или повышает тон гласной, также может сохранять сегментные контрасты
+		\item В ЛН, ударная гласная может звучать короче безударной, если она краткая
+		\item Гласная в безударном слоге может быть аналогична ударной долгой по длительности (в словах формы CV.CVVC)
+	\end{enumerate}
+	
+	\vspace*{1em}
+	Что значит быть ударной гласной?
+
+\end{frame}
+
+\begin{frame}{Что значит быть ударным?}
+
+	Предположим стандартное определение ударения для ЛН
+	\vspace*{1em}
+	
+	\begin{enumerate}[\ding{164}]
+		\item Пусть ударение прямо коррелирует с длительностью: более длинные гласные ударные, а более короткие --- безударные
+		\item Тогда мы сталкиваемся со ``третьей'' длительностью --- некоторые гласные по необъяснимой причине будут между ударными и безударными по длительности
+	\end{enumerate}
+		
+	\vspace*{1em}
+\begin{table}[H]
+\centering
+\begin{tabular}{llrrrl}
+\toprule
+word & segment &  mean, ms &  std, ms &  count & position \\
+\midrule
+\textbf{ka}.ta &       a &    139.14 &    32.91 &     32 &  initial \\
+ka.\textbf{ta} &       a &     96.97 &    35.30 &     32 &    final \\[.5em]
+
+\textbf{kă}.ta &       ă &     33.32 &    15.69 &     19 &  initial \\
+kă.\textbf{ta} &       a &    110.81 &    43.05 &     17 &    final \\[.5em]
+
+ka.\textbf{ta}.maʔ &       a &    108.46 &    18.46 &      6 &   medial \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+\begin{frame}{Что значит быть ударным?}
+
+	Предположим стандартное определение ударения для ЛН
+	\vspace*{1em}
+	
+	\begin{enumerate}[\ding{71}]
+		\item Также мы будем часто наблюдать 2 ударных слога подряд, там, где стоит гласная шва
+		\item Шва способна воспроизводить эффекты ударения даже на безударных слогах
+		\item Ничто не запрещает иметь слово, состоящее исключительно из ударных слогов
+	\end{enumerate}
+	
+	\vspace*{1em}
+\begin{table}[H]
+\centering
+\begin{tabular}{llrrrl}
+\toprule
+  word & segment &  mean, ms &  std, ms &  count & position \\
+\midrule
+\textbf{ka}.ta.λ° &       a &    117.37 &    26.90 &     22 &  initial \\
+ka.\textbf{ta}.λ° &       a &    141.09 &    34.93 &     21 &   medial \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+\begin{frame}{Что значит быть ударным?}
+
+	Предположим стандартное определение ударения для ЛН
+	\vspace*{1em}
+	
+	\begin{enumerate}[\ding{232}]
+		\item Также мы будем часто наблюдать 2 ударных слога подряд, там, где стоит гласная шва
+		\item Шва способна воспроизводить эффекты ударения даже на безударных слогах
+		\item Ничто не запрещает иметь слово, состоящее исключительно из ударных слогов
+	\end{enumerate}
+
+\ex \colorbox{pink}{λa.t°}.\colorbox{pink}{ŋa.m°} \hfill `ударить.{\Gfs}.{\Obj}.{\Sg}.{\Fsg}'\\
+	{[λatŋam]}\\[.5em]
+	\colorbox{pink}{xæ.m°}.\colorbox{pink}{ceḿ}.\colorbox{pink}{ṕo.š°}.tu.mă.š° \hfill `видеть.{\Prog}.{\Hab}.{\Obj}.{\Sg}.{\Fsg}.{\Prt}'\\
+	{[xæmčeḿṕoštumăš]}
+\xe
+
+\end{frame}
+
+\begin{frame}{Что значит быть ударным?}
+
+	С другой стороны, у картины мира, в которой в ЛН ударение падает на нечетные нефинальные слоги, есть свои проблемы
+	\vspace*{1em}
+	
+	\begin{enumerate}[\ding{104}]
+		\item Есть единицы, подверженные синкопированию кратких гласных в первом слоге
+		
+\ex
+	pĭʰta $\sim$ pta \hfill `он/она/оно'\\
+	čŭkˊi $\sim$ čkˊi \hfill `этот/эта/это'
+\xe
+
+		\item Найти выражение ударения в фонологии --- сложно \parencite{belov-shikunova2023, shikunova2024}, а его коррелят в фонетике --- невозможно
+	\end{enumerate}
+
+\end{frame}
+
+%\begin{frame}{Благодарности}
+%
+%	\begin{enumerate}[$\gg$]
+%		\item Всем консультантам, работавшим с нами в г. Тарко-Сале и с. Харампур
+%		\item 
+%	\end{enumerate}
+%
+%\end{frame}
+
+\begin{frame}[allowframebreaks]
+\frametitle{Источники}
+%\bibliography{ref}
+\printbibliography
+\end{frame}
+
+\section{Приложение}
+
+\begin{frame}
+\frametitle{Глоссы}
+%\begin{multicols}{2}
+\printglossary[title={}, style=mcolindex, nonumberlist]
+%\end{multicols}
+\end{frame}
+
+\begin{frame}{Глоссарий примеров}
+
+	    	\emph{kŭńaŋ} \hfill `куда' \\
+	    	\emph{ʔańaŋ} \hfill `Аня.{\Gen}' \\
+	    	\emph{tăn°šaŋ} \hfill `лестница' \\
+    	\emph{kata} \hfill `бабушка'\\
+	    	\emph{kăta} \hfill `ноготь'\\
+    	\emph{kataλ°} \hfill `бабушка.{\Poss}.{\Ssg}'\\
+
+\end{frame} 
+
+\begin{frame}{Краткая гласная}
+		
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{AOK_kăta}
+		\label{}
+		\caption*{\emph{kăta} `fingernail', tsOKT}
+	\end{figure} 
+
+\end{frame}
+
+\begin{frame}{Долгая гласная}
+		
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{AOK_kata_2}
+		\label{}
+		\caption*{\emph{kata} `grandmother', tsOKT}
+	\end{figure}
+
+\end{frame}
+
+\end{document}
